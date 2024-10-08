@@ -1,0 +1,9 @@
+Oddonacci at position 5 is 5 calculated in 0.0024 ms
+Oddonacci at position 10 is 105 calculated in 0.0065 ms
+Oddonacci at position 15 is 2209 calculated in 0.0989 ms
+Oddonacci at position 20 is 46499 calculated in 0.3588 ms
+Oddonacci at position 25 is 978793 calculated in 2.4163 ms
+Oddonacci at position 30 is 20603361 calculated in 42.0034 ms
+Oddonacci at position 35 is 433695873 calculated in 858.2933 ms
+Oddonacci at position 40 is 539260895 calculated in 18430.0934 ms
+Oddonacci at position 45 is -1106123859 calculated in 394818.8265 ms
