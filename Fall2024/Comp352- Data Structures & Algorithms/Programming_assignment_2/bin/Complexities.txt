@@ -1,0 +1,25 @@
+Time Complexity
+
+The Time complexity of my algorith is O(n).
+
+Looping through the input string is an operation that reads each character exactly once. This loop contributes O(n), where n is the length of the input string.
+
+The Stack operations that are performed on WildCardStack and MainStack are push and pop. Each push and pop contribute O(1) complexity for each character in the string.
+They collectively contribute O(n). The stacks only contain the incdices of '(' and '*', so at most they hold all positions in the string, meaning the number of push and
+pop operations are proportional to the input length.
+
+For the final matching loop after the initial traversal, a final while runs to match any remaining '(' with '*' from both stacks. This while loop executes at most n times
+in total because each pop operation corresponmds to a character in the input string. Therefore, this loops also contributes O(n) Complexity
+
+The algorithm's complexity is dominated by the initial single traversal O(n) and the final matching loop O(n). Since both parts are O(n), the total time compelxity of the
+algorithm is: O(n) + O(n) = O(n)
+
+Space Complexity
+
+The total space taken up are 2 stacks and other local variables resulting in O(n)
+
+The space usage for MainStack and WildCardStack both, in the worst case, store up to n elements. The combined space complexity is O(n)
+
+The algorithm uses a few additional scalar variables like currentChar, isValid, etc., which all require O(1) space.
+
+Since the stacks are the only data structures that scale withj the input size, the overall space complexity is dominated by the O(n) space required for both stacks.

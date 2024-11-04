@@ -12,27 +12,30 @@ public class MainClass {
             String input;
             // Read each line from the file
             while ((input = reader.readLine()) != null) {
-                validateParentheses(input);
+                System.out.printf("%s - %b%n",input, validateParentheses(input));;
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        
     }
 
     public static boolean validateParentheses(String input){
         MyStack MainStack = new MyStack();
         MyStack WildCardStack = new MyStack();
+        char currentChar;
 
-        boolean isValid = true;
 
-        for (char currentChar : input.toCharArray()) {
+        for (int i=0; i < input.length(); i++) {
+            currentChar = input.charAt(i);
             // Stop processing when '$' is encountered
             if(currentChar == '$')                  
                 break;
             // Push '*' (wildcard) to WildCardStack
             else if (currentChar == '*')            
-                WildCardStack.push(currentChar);
+                WildCardStack.push((char) i);
             // If ')' is encountered, handle as follows:
             // 1. If top of MainStack is '(', pop it to match the closing bracket
             // 2. If MainStack has no '(', check if there's a wildcard '*' in WildCardStack to match the ')'
@@ -40,12 +43,11 @@ public class MainClass {
             else if(currentChar == ')'){    
                 try{
                     if(!MainStack.isEmpty())
-                    MainStack.pop();
+                        MainStack.pop();
                     else if(!WildCardStack.isEmpty())
                         WildCardStack.pop();
                     else{
-                        isValid = false;
-                        break;
+                        return false;                  
                     }
                 }catch(EmptyStackException e){
                      System.out.println("Stack was empty");
@@ -53,16 +55,22 @@ public class MainClass {
             }
             // For any other character, push to MainStack
             else
-                MainStack.push(currentChar);          
+                MainStack.push((char) i);          
         }
 
-        if(!MainStack.isEmpty()){
-            isValid = false;
-        }
-        // edge case missing closing for a remaining opening 
+        //Final check if there are remaining unmatched (
+        while(!MainStack.isEmpty() && !WildCardStack.isEmpty()){
+            int openIndex = MainStack.pop();
+            int starIndex = WildCardStack.pop();
 
-        System.out.printf("input: %s isValid: %b%n",input, isValid);
-        return isValid;
+            //ensure * comes after (
+            if( starIndex < openIndex)
+                return false;
+        }
+        
+
+       
+        return MainStack.isEmpty();
     }
 
     

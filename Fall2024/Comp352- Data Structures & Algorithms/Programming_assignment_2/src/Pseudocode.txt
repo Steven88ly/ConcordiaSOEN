@@ -1,0 +1,44 @@
+Start: Define MainClass with main function
+    Input: path to the text file containing strings to validate
+    output: Prints each string with a message indicating if it's valid or invalid
+
+Initialize File Reader:
+    Set filePath to the path of the text file "./src/sample.txt"
+    Use a BufferedReader to read the liens from the file
+
+Read and Process each Line:
+    For each line input read from the file:
+        Call validateParentheses(input) to check if the parantheses are balanced
+
+Define validateParentheses Function:
+    Input: input string to validate 
+    Output: Boolean isValid indicating if input has balanced parantheses
+
+Initialize Stacks:
+    MainStack for storing indices of '('
+    WildCardStack for storing indices of '*'
+    
+Traverse the Input String:
+    For each character currentChar at index i in input:
+        If currentChar is $:
+            Break the loop (stop processing as $ indicates the end).
+        If currentChar is * (wildcard):
+            Push i (index) onto WildCardStack.
+        If currentChar is ) (closing parenthesis):
+            Try to pop a matching ( from MainStack:
+                If MainStack is not empty, pop ( to match ).
+                If MainStack is empty, check WildCardStack:
+                    If WildCardStack is not empty, pop a * to match ).
+                    If both stacks are empty, return false (string is invalid).
+            Catch EmptyStackException if stacks are empty unexpectedly.
+        If currentChar is ( (opening parenthesis):
+            Push i (index) onto MainStack.
+
+Final Validation:
+    While both MainStack and WildCardStack have elements:
+        Pop the top indices from MainStack and WildCardStack.
+        If the index of * is less than the index of (, return false (invalid).
+    If MainStack is empty after this, the string is valid; otherwise, it’s invalid.
+
+Print Result:
+    Print "input: <input> isValid: <isValid>", showing whether input is balanced.
