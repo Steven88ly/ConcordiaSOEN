@@ -1,0 +1,78 @@
+; Jacking in...
+; Connecting using "deps.edn" project type.
+; You can make Calva auto-select this.
+;   - See https://calva.io/connect-sequences/
+; 
+
+; Starting Jack-in: pushd c:\Users\steve\OneDrive\Documents\GitHub\ConcordiaSOEN\Fall2024\Comp348- Principles Of Programming Languages\Assignment3-Clojure & java -jar c:\Users\steve\.vscode\extensions\betterthantomorrow.calva-2.0.481\deps.clj.jar -Sdeps "{:deps {nrepl/nrepl {:mvn/version,\"1.1.1\"},cider/cider-nrepl {:mvn/version,\"0.47.1\"}}}" -M -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]" & popd
+; Using host:port view-localhost:52619 ...
+; Hooking up nREPL sessions ...
+; Connected session: clj
+; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.clj'
+nil
+clj꞉user꞉> 
+; Jack-in done.
+clj꞉user꞉> 
+(require 'fido)
+nil
+clj꞉user꞉> 
+(fido/-main)
+; 
+; Fido's Food Hunt!
+; 1. List map files
+; 2. Load a map and start search
+; 3. Exit
+; 
+; Choose an option: *  example_map.txt
+; 
+; Fido's Food Hunt!
+; 1. List map files
+; 2. Load a map and start search
+; 3. Exit
+; 
+; Choose an option: Enter the map file name: 
+; Fido's Challenge:
+; ---#--###----
+; -#---#----##-
+; ####-#-#-#-##
+; ---#---#-#---
+; -#-####---##-
+; -#------#----
+; -############
+; ------------@
+; 
+; 
+; Search Result:
+; 
+; 
+; 
+; Fido's Food Hunt!
+; 1. List map files
+; 2. Load a map and start search
+; 3. Exit
+; 
+; Choose an option: Enter the map file name: 
+; Fido's Challenge:
+; ---#--###----
+; -#---#----##-
+; ####-#-#-#-##
+; ---#---#-#---
+; -#-####---##-
+; -#------#----
+; -############
+; ------------@
+; 
+; 
+; Search Result:
+; 
+; 
+; 
+; Fido's Food Hunt!
+; 1. List map files
+; 2. Load a map and start search
+; 3. Exit
+; 
+; Choose an option: Sending interrupt.; Evaluation was interrupted
+clj꞉user꞉> 
+Execution error (InterruptedException) at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject/reportInterruptAfterWait (REPL:-1).
+; null
