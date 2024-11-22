@@ -13,7 +13,7 @@ public class Multiple{
    
      public static void main(String[] args) throws Exception {
          int oddo;                                             //Variable to hold calculated Oddonacci values
-         final int MAX_ODDO = 200, INC=5;                      //MAX_ODDO defines the limit, INC determines steps between calculations
+         final int MAX_ODDO = 40, INC=5;                      //MAX_ODDO defines the limit, INC determines steps between calculations
          final String FILE_NAME="./src/Multiple/OddoOut.txt";  //Output file path
          double startTime, endTime,diff ;                      //Variables for measuring time taken for each calculation
          BufferedWriter writer = null;                         //BufferedWriter for outputting results to file
