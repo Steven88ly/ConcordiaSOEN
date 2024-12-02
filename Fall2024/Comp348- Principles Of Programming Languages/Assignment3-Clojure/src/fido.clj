@@ -49,3 +49,5 @@
         "3" (println "Goodbye!")
         (do (println "Invalid option. Please try again.")
             (recur))))))
+
+(-main)
