@@ -3,6 +3,11 @@
             [clojure.string :as str]
             [clojure.java.io :as io]))
 
+(defn pause []
+  (println "Press any key to continue...")
+  (read-line))
+
+
 (defn display-menu []
   (println "\nFido's Food Hunt!")
   (println "1. List map files")
@@ -17,7 +22,10 @@
     (if (empty? files)
       (println "No map files found!")
       (doseq [file files]
-        (println "* " file)))))
+        (println "* " file))))
+  (pause))
+
+
 
 (defn start-search []
   (print "Enter the map file name: ")
@@ -42,10 +50,11 @@
     (flush)
     (let [choice (read-line)]
       (case choice
-        "1" (do (list-map-files)
-                (recur))
-        "2" (do (start-search)
-                (recur))
+        "1" (do (list-map-files) (recur))
+        "2" (do (start-search) (recur))
         "3" (println "Goodbye!")
-        (do (println "Invalid option. Please try again.")
-            (recur))))))
+        (do (println "Invalid option. Please try again.") (recur))))))
+        
+
+
+(-main)
