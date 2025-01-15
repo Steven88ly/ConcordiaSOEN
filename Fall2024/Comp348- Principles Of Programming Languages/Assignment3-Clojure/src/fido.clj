@@ -53,8 +53,5 @@
         "1" (do (list-map-files) (recur))
         "2" (do (start-search) (recur))
         "3" (println "Goodbye!")
-        (do (println "Invalid option. Please try again.") (recur))))))
-        
-
-
-(-main)
+        (do (println "Invalid option. Please try again.")
+            (recur))))))

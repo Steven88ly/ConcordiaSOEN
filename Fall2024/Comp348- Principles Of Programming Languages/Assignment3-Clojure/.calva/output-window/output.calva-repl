@@ -36,8 +36,13 @@ You can configure this with the setting:
 ;   - See https://calva.io/connect-sequences/
 ; 
 
+<<<<<<< HEAD
 ; Starting Jack-in: pushd c:\Users\steve\OneDrive\Documents\GitHub\ConcordiaSOEN\Fall2024\Comp348- Principles Of Programming Languages\Assignment3-Clojure & java -jar c:\Users\steve\.vscode\extensions\betterthantomorrow.calva-2.0.481\deps.clj.jar -Sdeps "{:deps {nrepl/nrepl {:mvn/version,\"1.1.1\"},cider/cider-nrepl {:mvn/version,\"0.47.1\"}}}" -M -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]" & popd
 ; Using host:port view-localhost:55402 ...
+=======
+; Starting Jack-in: pushd c:\Users\mai\Documents\GitHub\ConcordiaSOEN\Fall2024\Comp348- Principles Of Programming Languages\Assignment3-Clojure & java -jar c:\Users\mai\.vscode\extensions\betterthantomorrow.calva-2.0.481\deps.clj.jar -Sdeps "{:deps {nrepl/nrepl {:mvn/version,\"1.1.1\"},cider/cider-nrepl {:mvn/version,\"0.47.1\"}}}" -M -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]" & popd
+; Using host:port kubernetes.docker.internal:58655 ...
+>>>>>>> f575dad8834e138995ae0f0874384e6af123e881
 ; Hooking up nREPL sessions ...
 ; Connected session: clj
 ; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.clj'
@@ -47,7 +52,24 @@ clj꞉user꞉> 
 about why stdout printed to this file is prepended with `;` to be line comments."
 clj꞉user꞉> 
 ; Jack-in done.
+<<<<<<< HEAD
 clj꞉user꞉> 
 ; nREPL connection failed: Error: read ECONNRESET
 ; Failed connecting.
 ; nREPL Connection was closed
+=======
+clj꞉user꞉> (require 'fido)
+nil
+clj꞉user꞉> 
+(fido/-main)
+; 
+; Fido's Food Hunt!
+; 1. List map files
+; 2. Load a map and start search
+; 3. Exit
+; 
+; Choose an option: Sending interrupt.; Evaluation was interrupted
+clj꞉user꞉> 
+Execution error (InterruptedException) at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject/await (AbstractQueuedSynchronizer.java:1640).
+; null
+>>>>>>> f575dad8834e138995ae0f0874384e6af123e881
