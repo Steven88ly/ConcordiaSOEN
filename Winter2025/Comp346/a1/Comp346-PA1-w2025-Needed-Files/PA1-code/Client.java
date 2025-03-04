@@ -1,8 +1,8 @@
 
-import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -112,7 +112,7 @@ public class Client extends Thread {
         
         try
         {
-        	inputStream = new Scanner(new FileInputStream("transaction.txt"));
+        	inputStream = new Scanner(new FileInputStream("PA1-code\\transaction.txt"));
         }
         catch(FileNotFoundException e)
         {
@@ -158,6 +158,9 @@ public class Client extends Thread {
          while (i < getNumberOfTransactions())
          {  
             // while( objNetwork.getInBufferStatus().equals("full") );     /* Alternatively, busy-wait until the network input buffer is available */
+            while( objNetwork.getInBufferStatus().equals("full") ){ // if the input buffer is full, yield
+                Thread.yield();
+            }    /* Alternatively, busy-wait until the network output buffer is available */
                                              	
             transaction[i].setTransactionStatus("sent");   /* Set current transaction status */
            
@@ -182,6 +185,9 @@ public class Client extends Thread {
          while (i < getNumberOfTransactions())
          {     
         	 // while( objNetwork.getOutBufferStatus().equals("empty"));  	/* Alternatively, busy-wait until the network output buffer is available */
+            while(objNetwork.getOutBufferStatus().equals("empty")){// if the output buffer is empty, then yield
+                Thread.yield();
+            }    /* Alternatively, busy-wait until the network output buffer is available */
                                                                         	
             objNetwork.receive(transact);                               	/* Receive updated transaction from the network buffer */
             
@@ -198,7 +204,7 @@ public class Client extends Thread {
      * @return String representation
      * @param 
      */
-     public String toString() 
+     public String toString()
      {
     	 return ("\n client IP " + objNetwork.getClientIP() + " Connection status" + objNetwork.getClientConnectionStatus() + "Number of transactions " + getNumberOfTransactions());
      }
@@ -208,11 +214,31 @@ public class Client extends Thread {
      * @return 
      * @param
      */
+
     public void run()
     {   
     	Transactions transact = new Transactions();
     	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
-    
+
+        if (getClientOperation().equals("sending")){
+            sendClientStartTime = System.currentTimeMillis();
+            sendTransactions();
+            sendClientEndTime = System.currentTimeMillis();
+            System.out.println("\n Terminating client sending thread, Running time " + (sendClientEndTime - sendClientStartTime) + " milliseconds");
+        }
+        else if (getClientOperation().equals("receiving")){
+            receiveClientStartTime = System.currentTimeMillis();
+            receiveTransactions(transact);
+            receiveClientEndTime = System.currentTimeMillis();
+            System.out.println("\n Terminating client receiving thread, Running time " + (receiveClientEndTime - receiveClientStartTime) + " milliseconds");
+            objNetwork.disconnect(objNetwork.getClientIP());
+        }
+        else{
+            System.out.println("\n Invalid client operation"); 
+            System.exit(0);
+        }
+        
     	/* Implement here the code for the run method ... */
     }
+
 }

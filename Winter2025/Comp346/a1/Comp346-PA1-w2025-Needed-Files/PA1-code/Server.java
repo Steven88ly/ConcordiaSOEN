@@ -1,8 +1,8 @@
 
-import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,7 +15,7 @@ import java.util.InputMismatchException;
  * @author Kerly Titus
  */
 
-public class Server extends Thread{
+public class Server extends Thread {
   
 	int numberOfTransactions;         /* Number of transactions handled by the server */
 	int numberOfAccounts;             /* Number of accounts stored in the server */
@@ -40,7 +40,7 @@ public class Server extends Thread{
       account = new Accounts[maxNbAccounts];
       objNetwork = new Network("server");
       System.out.println("\n Inializing the Accounts database ...");
-      initializeAccounts( );
+      initializeAccounts();
       System.out.println("\n Connecting server to network ...");
       if (!(objNetwork.connect(objNetwork.getServerIP())))
       {
@@ -128,7 +128,7 @@ public class Server extends Thread{
         
         try
         {
-         inputStream = new Scanner(new FileInputStream("account.txt"));
+         inputStream = new Scanner(new FileInputStream("PA1-code\\account.txt"));
         }
         catch(FileNotFoundException e)
         {
@@ -193,6 +193,11 @@ public class Server extends Thread{
          while ((!objNetwork.getClientConnectionStatus().equals("disconnected")))
          { 
         	 /* while( (objNetwork.getInBufferStatus().equals("empty"))); */  /* Alternatively, busy-wait until the network input buffer is available */
+            //if the input buffer is empty, then yield
+             while((objNetwork.getInBufferStatus().equals("empty")) && objNetwork.getClientConnectionStatus().equals("disconnected")){
+                Thread.yield();
+             } /* Alternatively, block until the network input buffer is available */
+
         	 
         	 if (!objNetwork.getInBufferStatus().equals("empty"))
         	 {
@@ -232,6 +237,10 @@ public class Server extends Thread{
         				 } 
         		        		 
         		 // while( (objNetwork.getOutBufferStatus().equals("full"))); /* Alternatively,  busy-wait until the network output buffer is available */
+                 // while the output buffer is full then yield
+                         while(objNetwork.getOutBufferStatus().equals("full")){
+                             Thread.yield();
+                         } /* Alternatively, block until the network output buffer is available */  
                                                            
         		 System.out.println("\n DEBUG : Server.processTransactions() - transferring out account " + trans.getAccountNumber());
         		 
@@ -306,6 +315,7 @@ public class Server extends Thread{
      * @return 
      * @param
      */
+
     public void run()
     {   Transactions trans = new Transactions();
     	long serverStartTime, serverEndTime;
@@ -313,8 +323,15 @@ public class Server extends Thread{
     	System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
     	
     	/* Implement the code for the run method */
+        serverStartTime = System.currentTimeMillis();
+
+        processTransactions(trans);
+
+        serverEndTime = System.currentTimeMillis();
         
-        System.out.println("\n Terminating server thread - " + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
+        System.out.println("\nTerminating server thread - Running time " + (serverEndTime - serverStartTime) + " milliseconds");
+
+        objNetwork.disconnect(objNetwork.getServerIP());
            
     }
 }

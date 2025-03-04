@@ -9,7 +9,7 @@
  *
  * @author Kerly Titus
  */
-public class Network extends Thread{
+public class Network extends Thread {
     
     private static int maxNbPackets;                           /* Maximum number of simultaneous transactions handled by the network buffer */
     private static int inputIndexClient, inputIndexServer, outputIndexServer, outputIndexClient;                   /* Network buffer indices for accessing the input buffer (inputIndexClient, outputIndexServer) and output buffer (inputIndexServer, outputIndexClient) */
@@ -42,7 +42,7 @@ public class Network extends Thread{
             clientConnectionStatus = "idle";
             serverConnectionStatus = "idle";
             portID = 0;
-            maxNbPackets = 10;
+            maxNbPackets = 20; //can change
             inComingPacket = new Transactions[maxNbPackets];
             outGoingPacket = new Transactions[maxNbPackets];
             for (i=0; i < maxNbPackets; i++)
@@ -524,7 +524,7 @@ public class Network extends Thread{
              {
                 setServerConnectionStatus("disconnected");
              }
-             return true;
+                return true;
          }
          else
              return false;
@@ -550,13 +550,24 @@ public class Network extends Thread{
      * @return 
      * @param
      */
-    public void run()
-    {	
-    	System.out.println("\n DEBUG : Network.run() - starting network thread");
+
+    public void run() {	/* Implement here the code for the run method ... */
+    //it will cehck if the client and server connection are disconnected then it will terminate the server thread
+    //yields execution time to other threads
+    	System.out.println("\n DEBUG : Network.run() - starting network thread"); 
     	
     	while (true)
     	{
-		/* Implement here the code for the run method ... */
+            if(getClientConnectionStatus().equals("disconnected") 
+                && (getServerConnectionStatus().equals("disconnected"))) // if server and network are disconnected, then termiante thread
+            {
+                System.out.println("Terminating network thread - Client " + getClientConnectionStatus() + " Server " + getServerConnectionStatus());
+                return;
+            }
+            else{
+                Thread.yield(); // if not then wait
+            }
     	}    
+       
     }
 }

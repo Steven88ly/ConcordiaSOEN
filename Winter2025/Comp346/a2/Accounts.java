@@ -147,6 +147,7 @@ public class Accounts {
 	* 
 	* @return String representation
 	*/
+    @Override
 	public String toString() 
 	{
 		return ("\n Account number " + getAccountNumber() + "Account type " + getAccountType() + "First name " + getFirstName() + "Last Name " + getLastName() + "Balance " + getBalance());

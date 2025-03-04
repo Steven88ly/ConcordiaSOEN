@@ -1,9 +1,8 @@
 
-import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
-
+import java.util.Scanner;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -218,7 +217,7 @@ public class Client extends Thread {
     public void run()
     {   
     	Transactions transact = new Transactions();
-    	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
+    	long sendClientStartTime, sendClientEndTime, receiveClientStartTime = 0, receiveClientEndTime = 0;
      
          /*................................................................................................................................................................................................................*/
               
@@ -226,4 +225,4 @@ public class Client extends Thread {
             }
                 
     }
-}
+
