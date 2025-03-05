@@ -421,6 +421,12 @@ public class Server extends Thread {
     	
 	Transactions trans = new Transactions();
     	long serverStartTime, serverEndTime;
+
+    serverStartTime = System.currentTimeMillis();
+
+    processTransactions(trans);
+
+    serverEndTime = System.currentTimeMillis();
     
 	/* System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus()); */
     	

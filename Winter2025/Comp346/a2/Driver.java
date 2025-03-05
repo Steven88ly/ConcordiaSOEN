@@ -21,11 +21,14 @@ public class Driver {
      */
     public static void main(String[] args) {
         
-    		Network objNetwork = new Network("network");            
+    		Network objNetwork = new Network();            
         objNetwork.start();
         
-        Server objServer = new Server();        
-        objServer.start();
+        Server objServer1 = new Server("server1");        
+        objServer1.start();
+
+        Server objServer2 = new Server("server2");
+        objServer2.start();
 
         Client objClientSending = new Client("sending");
         objClientSending.start();
