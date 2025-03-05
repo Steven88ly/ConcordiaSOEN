@@ -20,7 +20,6 @@ public class Client extends Thread {
     private static int numberOfTransactions;   		/* Number of transactions to process */
     private static int maxNbTransactions;      		/* Maximum number of transactions */
     private static Transactions [] transaction; 	/* Transactions to be processed */
-    private static Network objNetwork;          	/* Client object to handle network operations */
     private String clientOperation;    				/* sending or receiving */
     
 	/** Constructor method of Client class
@@ -36,13 +35,12 @@ public class Client extends Thread {
            numberOfTransactions = 0;
            maxNbTransactions = 100;
            transaction = new Transactions[maxNbTransactions];  
-           objNetwork = new Network("client");
            clientOperation = operation; 
            System.out.println("\n Initializing the transactions ... ");
            readTransactions();
            System.out.println("\n Connecting client to network ...");
-           String cip = objNetwork.getClientIP();
-           if (!(objNetwork.connect(cip)))
+           String cip = Network.getClientIP();
+           if (!(Network.connect(cip)))
            {   System.out.println("\n Terminating client application, network unavailable");
                System.exit(0);
            }
@@ -157,8 +155,7 @@ public class Client extends Thread {
          
          while (i < getNumberOfTransactions())
          {  
-            // while( objNetwork.getInBufferStatus().equals("full") );     /* Alternatively, busy-wait until the network input buffer is available */
-            while( objNetwork.getInBufferStatus().equals("full") ){
+            while( Network.getInBufferStatus().equals("full") ){
                 Thread.yield();
             }    /* Alternatively, busy-wait until the network output buffer is available */
                                              	
@@ -166,7 +163,7 @@ public class Client extends Thread {
            
             System.out.println("\n DEBUG : Client.sendTransactions() - sending transaction on account " + transaction[i].getAccountNumber());
             
-            objNetwork.send(transaction[i]);                            /* Transmit current transaction */
+            Network.send(transaction[i]);                            /* Transmit current transaction */
             i++;
          }
          
@@ -185,11 +182,11 @@ public class Client extends Thread {
          while (i < getNumberOfTransactions())
          {     
         	 // while( objNetwork.getOutBufferStatus().equals("empty"));  	/* Alternatively, busy-wait until the network output buffer is available */
-            while(objNetwork.getOutBufferStatus().equals("empty")){
+            while(Network.getOutBufferStatus().equals("empty")){
                 Thread.yield();
             }    /* Alternatively, busy-wait until the network output buffer is available */
                                                                         	
-            objNetwork.receive(transact);                               	/* Receive updated transaction from the network buffer */
+            Network.receive(transact);                               	/* Receive updated transaction from the network buffer */
             
             System.out.println("\n DEBUG : Client.receiveTransactions() - receiving updated transaction on account " + transact.getAccountNumber());
             
@@ -206,7 +203,7 @@ public class Client extends Thread {
      */
      public String toString() 
      {
-    	 return ("\n client IP " + objNetwork.getClientIP() + " Connection status" + objNetwork.getClientConnectionStatus() + "Number of transactions " + getNumberOfTransactions());
+    	 return ("\n client IP " + Network.getClientIP() + " Connection status" + Network.getClientConnectionStatus() + "Number of transactions " + getNumberOfTransactions());
      }
     
     /** Code for the run method
@@ -231,7 +228,7 @@ public class Client extends Thread {
             receiveTransactions(transact);
             receiveClientEndTime = System.currentTimeMillis();
             System.out.println("\n Terminating client receiving thread, Running time " + (receiveClientEndTime - receiveClientStartTime) + " milliseconds");
-            objNetwork.disconnect(objNetwork.getClientIP());
+            Network.disconnect(Network.getClientIP());
         }
         else{
             System.out.println("\n Invalid client operation"); 

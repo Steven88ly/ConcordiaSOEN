@@ -32,8 +32,11 @@ public class Driver {
     	Network objNetwork = new Network("network");            /* Activate the network */
         objNetwork.start();
 
-        Server objServer = new Server();        
-        objServer.start();
+        Server objServer1 = new Server("server1");            /* Activate the server */
+        objServer1.start();
+
+        Server objServer2 = new Server("server2");        
+        objServer2.start();
 
         Client objClientSending = new Client("sending");
         objClientSending.start();
@@ -41,7 +44,19 @@ public class Driver {
         Client objClientReceiving = new Client("receiving");
         objClientReceiving.start();
 
+        try {
+            objServer1.join();  // Wait for server thread 1 to finish
+            objServer2.join();  // Wait for server thread 2 to finish
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
  
+        //Disconnect the network when both threads have terminated
+        if(Server.getNumTerminatedThreads() == 2){
+            System.out.println("Both server threads have terminated. Disconnecting the server.");
+            Network.disconnect(Network.getServerIP());
+        }
+
         /* Complete here the code for the main method ...*/
     }
 }
