@@ -46,11 +46,11 @@ public class Driver {
 
         try {
             objServer1.join();  // Wait for server thread 1 to finish
-            objServer2.join();  // Wait for server thread 2 to finish
+            // objServer2.join();  // Wait for server thread 2 to finish
         } catch (Exception e) {
             e.printStackTrace();
         }
- 
+    
         //Disconnect the network when both threads have terminated
         if(Server.getNumTerminatedThreads() == 2){
             System.out.println("Both server threads have terminated. Disconnecting the server.");
