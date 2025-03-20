@@ -110,7 +110,7 @@ public class Client extends Thread {
         
         try
         {
-        	inputStream = new Scanner(new FileInputStream("./transaction.txt"));
+        	inputStream = new Scanner(new FileInputStream("Winter2025\\Comp346\\a2\\transaction.txt"));
         }
         catch(FileNotFoundException e)
         {

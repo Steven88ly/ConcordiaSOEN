@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+
 /**
  *
  * @author Kerly Titus
@@ -15,16 +18,16 @@ public class Driver {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-      /* TO PRINT OUTPUT
+    //   /* TO PRINT OUTPUT
         try{
-            PrintStream output = new PrintStream("output-with-20.txt");
+            PrintStream output = new PrintStream("semaphore-3threads.txt");
             System.setOut(output);
 
         }catch(FileNotFoundException e){
             System.out.println("file cannot be found.");
             System.exit(0);
         }
-        */
+        
     	 /*******************************************************************************************************************************************
     	  * TODO : implement all the operations of main class   																					*
     	  ******************************************************************************************************************************************/
@@ -38,24 +41,16 @@ public class Driver {
         Server objServer2 = new Server("server2");        
         objServer2.start();
 
+        Server objServer3 = new Server("server3");        
+        objServer3.start();
+
         Client objClientSending = new Client("sending");
         objClientSending.start();
 
         Client objClientReceiving = new Client("receiving");
         objClientReceiving.start();
 
-        try {
-            objServer1.join();  // Wait for server thread 1 to finish
-            // objServer2.join();  // Wait for server thread 2 to finish
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    
-        //Disconnect the network when both threads have terminated
-        if(Server.getNumTerminatedThreads() == 2){
-            System.out.println("Both server threads have terminated. Disconnecting the server.");
-            Network.disconnect(Network.getServerIP());
-        }
+        
 
         /* Complete here the code for the main method ...*/
     }

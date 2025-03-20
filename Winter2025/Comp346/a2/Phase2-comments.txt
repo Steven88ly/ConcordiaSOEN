@@ -1,0 +1,3 @@
+The running time of the semaphore implemented solution is slightly slower than the unsynchronized solution because of added overhead from interacting with the underlying OS kernel.
+
+The running time of 3 server threads was significantly faster than having 2 server threads running. The running time for 3 threads was 248ms for each thread and it was 351ms for 2 server threads. This proves that having more threads can increase performance of a system with proper synchronization methods implemented.
